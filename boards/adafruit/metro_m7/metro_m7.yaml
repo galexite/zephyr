@@ -1,0 +1,31 @@
+#
+# Copyright (c) 2023 TiaC Systems
+# Copyright (c) 2019, NXP
+# Copyright (c) 2024, George White
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+identifier: metro_m7
+name: Adafruit Metro M7
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 64
+flash: 8192
+supported:
+  - arduino_gpio
+  - arduino_i2c
+  - arduino_serial
+  - arduino_spi
+  - i2c
+  - counter
+  - dma
+  - usb_device
+  - spi
+  - adc
+  - gpio
+vendor: adafruit
