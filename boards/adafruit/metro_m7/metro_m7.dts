@@ -17,7 +17,7 @@
 	compatible = "adafruit,metro_m7";
 
 	aliases {
-		led0 = &green_led; // TODO
+		led0 = &user_led;
 	};
 
 	chosen {
@@ -32,14 +32,15 @@
 		zephyr,uart-mcumgr = &lpuart1;
 	};
 
-	leds { // TODO
+	leds {
 		compatible = "gpio-leds";
-		green_led: led-1 {
+		user_led: led-1 {
 			gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
-			label = "User LD1";
+			label = "User LED";
 		};
 	};
 
+	// TODO(galexite): complete Ax headers, check D14, D15
 	arduino_header: connector {
 		compatible = "arduino-header-r3";
 		#gpio-cells = <2>;
@@ -49,24 +50,24 @@
 			   <1 0 &gpio1 23 0>,	/* A1 */
 			   <2 0 &gpio1 24 0>,	/* A2 */
 			   <3 0 &gpio1 28 0>,	/* A3 */
-			   <4 0 &gpio1 15 0>,	/* A4 (shared with D6) */
-			   <5 0 &gpio1 16 0>,	/* A5 (shared with D7) */
+			   <4 0 &gpio1 15 0>,	/* A4 */
+			   <5 0 &gpio1 16 0>,	/* A5 */
 			   <6 0 &gpio1 9 0>,	/* D0 */
 			   <7 0 &gpio1 10 0>,	/* D1 */
-			   <8 0 &gpio1 19 0>,	/* D2 (shared with D10) */
-			   <9 0 &gpio1 20 0>,	/* D3 (shared with D13) */
-			   /* R800 not populated,  D4 */
-			   /* R793 not populated,  D5 (shared with D14) */
-			   <12 0 &gpio1 15 0>,	/* D6 (shared with A4) */
-			   <13 0 &gpio1 16 0>,	/* D7 (shared with A5) */
-			   <14 0 &gpio2 2 0>,	/* D8 */
-			   /* R795 not populated,  D9 */
-			   <16 0 &gpio1 19 0>,	/* D10 (shared with D2) */
-			   <17 0 &gpio1 18 0>,	/* D11 */
-			   <18 0 &gpio1 17 0>,	/* D12 */
-			   <19 0 &gpio1 20 0>,	/* D13 (shared with D3) */
-			   <20 0 &gpio1 1 0>,	/* D14 */
-			   <21 0 &gpio1 2 0>;	/* D15 */
+			   <8 0 &gpio1 13 0>,	/* D2 */
+			   <9 0 &gpio1 12 0>,	/* D3 */
+			   <10 0 &gpio2 0 0>,	/* D4 */
+			   <11 0 &gpio2 1 0>,	/* D5 */
+			   <12 0 &gpio2 2 0>,	/* D6 */
+			   <13 0 &gpio1 11 0>,	/* D7 */
+			   <14 0 &gpio1 8 0>,	/* D8 */
+			   <15 0 &gpio1 7 0>,	/* D9 */
+			   <16 0 &gpio1 6 0>,	/* D10 */
+			   <17 0 &gpio1 5 0>,	/* D11 */
+			   <18 0 &gpio1 4 0>,	/* D12 */
+			   <19 0 &gpio1 3 0>,	/* D13 */
+			   <20 0 &gpio1 2 0>,	/* D14 (shared with A0) */
+			   <21 0 &gpio1 1 0>;	/* D15 (shared with A1) */
 	};
 };
 
