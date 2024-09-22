@@ -17,11 +17,11 @@
 	compatible = "adafruit,metro_m7";
 
 	aliases {
+		/* TODO(galexite): NeoPixel */
 		led0 = &user_led;
 	};
 
 	chosen {
-		zephyr,sram = &ocram;
 		zephyr,itcm = &itcm;
 		zephyr,dtcm = &dtcm;
 		zephyr,console = &lpuart1;
@@ -40,7 +40,7 @@
 		};
 	};
 
-	// TODO(galexite): complete Ax headers, check D14, D15
+	/* TODO(galexite): complete Ax headers, check D14, D15 */
 	arduino_header: connector {
 		compatible = "arduino-header-r3";
 		#gpio-cells = <2>;
@@ -69,14 +69,6 @@
 			   <20 0 &gpio1 2 0>,	/* D14 (shared with A0) */
 			   <21 0 &gpio1 1 0>;	/* D15 (shared with A1) */
 	};
-};
-
-arduino_serial: &lpuart1 {};
-
-&lpuart4 {
-	pinctrl-0 = <&pinmux_lpuart4>;
-	pinctrl-1 = <&pinmux_lpuart4_sleep>;
-	pinctrl-names = "default", "sleep";
 };
 
 &flexspi {
@@ -131,12 +123,14 @@ arduino_i2c: &lpi2c1 {
 	pinctrl-names = "default";
 };
 
+arduino_serial: &lpuart1 {};
+
 &lpuart1 {
 	status = "okay";
 	current-speed = <115200>;
 	pinctrl-0 = <&pinmux_lpuart1>;
-	pinctrl-1 = <&pinmux_lpuart1_sleep>;
-	pinctrl-names = "default", "sleep";
+	/* pinctrl-1 = <&pinmux_lpuart1_sleep>; */
+	pinctrl-names = "default" /*, "sleep" */;
 };
 
 arduino_spi: &lpspi1 {
@@ -152,6 +146,7 @@ zephyr_udc0: &usb1 {
 	status = "okay";
 };
 
+/*
 &adc1 {
 	status = "okay";
 	pinctrl-0 = <&pinmux_adc1>;
@@ -162,6 +157,7 @@ zephyr_udc0: &usb1 {
 	pinctrl-0 = <&pinmux_sai1>;
 	pinctrl-names = "default";
 };
+*/
 
 &edma0 {
 	status = "okay";
