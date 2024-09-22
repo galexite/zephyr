@@ -1,5 +1,5 @@
 board:
-  name: metro_m7
+  name: adafruit_metro_m7
   vendor: adafruit
   socs:
     - name: mimxrt1011
