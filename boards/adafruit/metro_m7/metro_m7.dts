@@ -46,12 +46,12 @@
 		#gpio-cells = <2>;
 		gpio-map-mask = <0xffffffff 0xffffffc0>;
 		gpio-map-pass-thru = <0 0x3f>;
-		gpio-map = <0 0 &gpio1 21 0>,	/* A0 */
-			   <1 0 &gpio1 23 0>,	/* A1 */
-			   <2 0 &gpio1 24 0>,	/* A2 */
-			   <3 0 &gpio1 28 0>,	/* A3 */
-			   <4 0 &gpio1 15 0>,	/* A4 */
-			   <5 0 &gpio1 16 0>,	/* A5 */
+		gpio-map = <0 0 &gpio1 16 0>,	/* A0 */
+			   <1 0 &gpio1 15 0>,	/* A1 */
+			   <2 0 &gpio1 14 0>,	/* A2 */
+			   <3 0 &gpio1 19 0>,	/* A3 */
+			   <4 0 &gpio1 24 0>,	/* A4 */
+			   <5 0 &gpio1 22 0>,	/* A5 */
 			   <6 0 &gpio1 9 0>,	/* D0 */
 			   <7 0 &gpio1 10 0>,	/* D1 */
 			   <8 0 &gpio1 13 0>,	/* D2 */

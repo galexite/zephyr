@@ -61,7 +61,7 @@
 	};
 
 	/* Configures pin routing and optionally pin electrical features. */
-	board_initqspipins: board_initqspipins {
+	pinmux_flexspi: pinmux_flexspi {
 		group0 {
 			pinmux = <&iomuxc_gpio_sd_10_flexspi_a_sclk>,
 				<&iomuxc_gpio_sd_09_flexspi_a_data0>,
@@ -99,7 +99,7 @@
 	};
 
 	/* Configures pin routing and optionally pin electrical features. */
-	board_initcombo_sensorpins: board_initcombo_sensorpins {
+	pinmux_lpi2c1: pinmux_lpi2c1 {
 		group0 {
 			pinmux = <&iomuxc_gpio_02_lpi2c1_scl>,
 				<&iomuxc_gpio_01_lpi2c1_sda>;
