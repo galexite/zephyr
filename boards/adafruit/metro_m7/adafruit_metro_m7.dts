@@ -24,6 +24,7 @@
 	};
 
 	chosen {
+		zephyr,sram = &ocram;
 		zephyr,itcm = &itcm;
 		zephyr,dtcm = &dtcm;
 		zephyr,console = &lpuart1;
