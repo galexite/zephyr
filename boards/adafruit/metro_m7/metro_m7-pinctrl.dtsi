@@ -50,7 +50,7 @@
 	};
 
 	/* Configures pin routing and optionally pin electrical features. */
-	board_initdebug_uartpins: board_initdebug_uartpins {
+	pinmux-lpuart1: pinmux-lpuart1 {
 		group0 {
 			pinmux = <&iomuxc_gpio_09_lpuart1_rxd>,
 				<&iomuxc_gpio_10_lpuart1_txd>;
