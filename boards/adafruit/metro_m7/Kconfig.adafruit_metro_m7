@@ -2,5 +2,5 @@
 # Copyright (c) 2024, George White
 # SPDX-License-Identifier: Apache-2.0
 
-config BOARD_METRO_M7
+config BOARD_ADAFRUIT_METRO_M7
 	select SOC_PART_NUMBER_MIMXRT1011DAE5A

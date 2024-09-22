@@ -30,7 +30,6 @@
 #include <nxp/nxp_imx/rt/mimxrt1011dae5a-pinctrl.dtsi>
 
 &pinctrl {
-	/* Configures pin routing and optionally pin electrical features. */
 	board_initpins: board_initpins {
 		group0 {
 			pinmux = <&iomuxc_gpio_ad_03_lpspi1_sdi>,
@@ -49,8 +48,7 @@
 		};
 	};
 
-	/* Configures pin routing and optionally pin electrical features. */
-	pinmux-lpuart1: pinmux-lpuart1 {
+	pinmux_lpuart1: pinmux_lpuart1 {
 		group0 {
 			pinmux = <&iomuxc_gpio_09_lpuart1_rxd>,
 				<&iomuxc_gpio_10_lpuart1_txd>;
@@ -60,7 +58,6 @@
 		};
 	};
 
-	/* Configures pin routing and optionally pin electrical features. */
 	pinmux_flexspi: pinmux_flexspi {
 		group0 {
 			pinmux = <&iomuxc_gpio_sd_10_flexspi_a_sclk>,
@@ -75,7 +72,6 @@
 		};
 	};
 
-	/* Configures pin routing and optionally pin electrical features. */
 	board_initledpins: board_initledpins {
 		group0 {
 			pinmux = <&iomuxc_gpio_11_gpiomux_io11>;
@@ -85,7 +81,6 @@
 		};
 	};
 
-	/* Configures pin routing and optionally pin electrical features. */
 	board_initbuttonpins: board_initbuttonpins {
 		group0 {
 			pinmux = <&iomuxc_gpio_sd_05_gpio2_io05>;
@@ -98,7 +93,6 @@
 		};
 	};
 
-	/* Configures pin routing and optionally pin electrical features. */
 	pinmux_lpi2c1: pinmux_lpi2c1 {
 		group0 {
 			pinmux = <&iomuxc_gpio_02_lpi2c1_scl>,
@@ -111,5 +105,15 @@
 		};
 	};
 
+	pinmux_lpspi1: pinmux_lpspi1 {
+		group0 {
+			pinmux = <&iomuxc_gpio_ad_06_lpspi1_sck>,
+				<&iomuxc_gpio_ad_04_lpspi1_sdo>,
+				<&iomuxc_gpio_ad_03_lpspi1_sdi>;
+			drive-strength = "r0-4";
+			slew-rate = "slow";
+			nxp,speed = "100-mhz";
+		};
+	};
 };
 

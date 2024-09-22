@@ -6,7 +6,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-identifier: metro_m7
+identifier: adafruit_metro_m7
 name: Adafruit Metro M7
 type: mcu
 arch: arm
