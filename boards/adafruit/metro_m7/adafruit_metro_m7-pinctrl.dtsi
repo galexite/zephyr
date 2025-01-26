@@ -122,8 +122,8 @@
 
 	pinmux_lpi2c1: pinmux_lpi2c1 {
 		group0 {
-			pinmux = <&iomuxc_gpio_02_lpi2c1_scl>,
-				<&iomuxc_gpio_01_lpi2c1_sda>;
+			pinmux = <&iomuxc_gpio_12_arm_trace2>,
+				<&iomuxc_gpio_11_arm_trace3>;
 			drive-strength = "r0-4";
 			drive-open-drain;
 			slew-rate = "slow";
