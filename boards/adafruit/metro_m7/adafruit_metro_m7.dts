@@ -123,14 +123,19 @@ arduino_i2c: &lpi2c1 {
 	pinctrl-names = "default";
 };
 
-arduino_serial: &lpuart1 {};
+arduino_serial: &lpuart4 {};
 
 &lpuart1 {
 	status = "okay";
 	current-speed = <115200>;
 	pinctrl-0 = <&pinmux_lpuart1>;
-	/* pinctrl-1 = <&pinmux_lpuart1_sleep>; */
-	pinctrl-names = "default" /*, "sleep" */;
+	pinctrl-names = "default";
+};
+
+&lpuart4 {
+	pinctrl-0 = <&pinmux_lpuart4>;
+	pinctrl-1 = <&pinmux_lpuart4_sleep>;
+	pinctrl-names = "default", "sleep";
 };
 
 arduino_spi: &lpspi1 {
