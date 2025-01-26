@@ -14,7 +14,7 @@ toolchain:
   - zephyr
   - gnuarmemb
   - xtools
-ram: 64
+ram: 128
 flash: 8192
 supported:
   - arduino_gpio
