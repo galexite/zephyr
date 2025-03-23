@@ -10,7 +10,6 @@
 
 #include <nxp/nxp_rt1010.dtsi>
 #include "adafruit_metro_m7-pinctrl.dtsi"
-#include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <freq.h>
 #include <mem.h>
 
@@ -109,7 +108,7 @@
 				label = "code-partition";
 				reg = <0x0000C000 (DT_SIZE_M(4) - DT_SIZE_K(48))>;
 			};
-			storage_partition: partition@622000 {
+			storage_partition: partition@400000 {
 				label = "storage";
 				reg = <0x00400000 DT_SIZE_M(4)>;
 			};
