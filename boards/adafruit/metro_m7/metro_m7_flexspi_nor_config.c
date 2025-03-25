@@ -44,8 +44,7 @@ __attribute__((section(".boot_hdr.conf"))) const flexspi_nor_config_t qspiflash_
 				.deviceType = kFLEXSPIDeviceType_SerialNOR,
 				.sflashPadType = kSerialFlash_4Pads,
 				.serialClkFreq = kFLEXSPISerialClk_133MHz,
-				.sflashA1Size = BOARD_FLASH_SIZE, // TODO(galexite): verify this is
-								  // (8 * 1024 * 1024)
+				.sflashA1Size = BOARD_FLASH_SIZE,
 				.lookupTable =
 					{// FSL_ROM_FLEXSPI_LUT_SEQ(cmd0, pad0, op0, cmd1, pad1,
 					 // op1) The high 16 bits is command 1 and the low are
