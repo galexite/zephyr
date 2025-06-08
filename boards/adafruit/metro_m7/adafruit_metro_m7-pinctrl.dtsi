@@ -99,27 +99,6 @@
 		};
 	};
 
-	board_initledpins: board_initledpins {
-		group0 {
-			pinmux = <&iomuxc_gpio_11_gpiomux_io11>;
-			drive-strength = "r0-4";
-			slew-rate = "slow";
-			nxp,speed = "100-mhz";
-		};
-	};
-
-	board_initbuttonpins: board_initbuttonpins {
-		group0 {
-			pinmux = <&iomuxc_gpio_sd_05_gpio2_io05>;
-			drive-strength = "r0-4";
-			input-schmitt-enable;
-			bias-pull-up;
-			bias-pull-up-value = "100k";
-			slew-rate = "slow";
-			nxp,speed = "100-mhz";
-		};
-	};
-
 	pinmux_lpi2c1: pinmux_lpi2c1 {
 		group0 {
 			pinmux = <&iomuxc_gpio_12_arm_trace2>,

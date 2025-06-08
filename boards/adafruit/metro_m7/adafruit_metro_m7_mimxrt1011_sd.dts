@@ -15,11 +15,13 @@
 };
 
 &lpspi1 {
+	cs-gpios = <>; /* TODO(galexite): GPIO_AD_14 */
+
 	sdhc0: sdhc@0 {
 		compatible = "zephyr,sdhc-spi-slot";
 		reg = <0>;
 		status = "okay";
-		spi-max-frequency = <1000000>;
+		spi-max-frequency = <DT_FREQ_M(24)>;
 		mmc {
 			compatible = "zephyr,sdmmc-disk";
 			disk-name = "SD";
