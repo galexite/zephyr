@@ -1,0 +1,11 @@
+/*
+ * Copyright (c) 2025, George White
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+
+#include "adafruit_metro_m7.dts"
+
+/* TODO: Configure the AirLift */

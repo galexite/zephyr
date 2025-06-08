@@ -1,5 +1,9 @@
 board:
   name: adafruit_metro_m7
+  full_name: Adafruit Metro M7
   vendor: adafruit
   socs:
     - name: mimxrt1011
+      variants:
+      - name: sd
+      - name: airlift

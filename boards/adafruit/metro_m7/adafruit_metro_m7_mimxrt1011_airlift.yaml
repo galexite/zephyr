@@ -1,0 +1,31 @@
+#
+# Copyright (c) 2024-2025, George White
+# Copyright (c) 2023 TiaC Systems
+# Copyright (c) 2019, NXP
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+identifier: adafruit_metro_m7/mimxrt1011/sd
+name: Adafruit Metro M7 with AirLift
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 128
+flash: 8192
+supported:
+  - arduino_gpio
+  - arduino_i2c
+  - arduino_serial
+  - arduino_spi
+  - i2c
+  - counter
+  - dma
+  - usb_device
+  - spi
+  - adc
+  - gpio
+vendor: adafruit

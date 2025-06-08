@@ -137,8 +137,7 @@ arduino_serial: &lpuart4 {};
 	pinctrl-names = "default", "sleep";
 };
 
-/* TODO(galexite): looks like this is mapped to the SD card not Arduino header */
-arduino_spi: &lpspi1 {
+&lpspi1 {
 	status = "okay";
 	/* DMA channels 0 and 1, muxed to LPSPI1 RX and TX */
 	dmas = <&edma0 0 13>, <&edma0 1 14>;
