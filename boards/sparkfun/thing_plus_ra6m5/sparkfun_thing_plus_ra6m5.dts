@@ -1,0 +1,372 @@
+/*
+ * Copyright (c) 2025 George White
+ * Copyright (c) 2025 Arduino SA
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+
+/* NOTE: different package type, but otherwise same SoC */
+#include <renesas/ra/ra6/r7fa6m5bh3cfc.dtsi>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/pwm/pwm.h>
+
+#include "sparkfun_thing_plus_ra6m5-pinctrl.dtsi"
+#include "feather_connector.dtsi"
+
+/ {
+	model = "Sparkfun Thing Plus - RA6M5";
+	compatible = "renesas,ra6m5", "renesas,ra";
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash-controller = &flash1;
+		zephyr,code-partition = &code_partition;
+		zephyr,flash = &flash0;
+		zephyr,console = &uart9;
+		zephyr,shell-uart = &uart9;
+		zephyr,entropy = &trng;
+		zephyr,bt-hci = &bt_hci_uart;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		led1: led1 {
+			gpios = <&ioport1 7 GPIO_ACTIVE_LOW>;
+			label = "LEDR";
+		};
+
+		led2: led2 {
+			gpios = <&ioport4 0 GPIO_ACTIVE_LOW>;
+			label = "LEDG";
+		};
+
+		led3: led3 {
+			gpios = <&ioport8 0 GPIO_ACTIVE_LOW>;
+			label = "LEDB";
+		};
+	};
+
+	download-esp32 {
+		compatible = "regulator-fixed";
+		regulator-name = "download_esp32";
+		enable-gpios = <&ioport8 3 GPIO_ACTIVE_HIGH>;
+		regulator-boot-on;
+	};
+
+	aliases {
+		led0 = &led1;
+	};
+};
+
+/* On-chip flash */
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x00000000 DT_SIZE_K(64)>;
+			read-only;
+		};
+
+		code_partition: partition@10000 {
+			label = "image-0";
+			reg = <0x00010000 (DT_SIZE_M(2) - DT_SIZE_K(64))>;
+		};
+	};
+};
+
+&flash1 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		storage_partition: partition@0 {
+			label = "storage";
+			reg = <0X0 DT_SIZE_K(8)>;
+		};
+	};
+};
+
+/* External QSPI flash (controller not yet supported by Zephyr) */
+
+// &qspi {
+// 	qspi_flash: mx25l12833f: qspi-nor-flash@0 {
+// 		compatible = "NOT SUPPORTED";
+// 		reg = <0>;
+// 		size = <DT_SIZE_M(128)>; /* 128 Mbits (16 MB) */
+// 		qspi-max-frequency = <40000000>;
+// 		cs-high-time = <2>; /* >= 30 ns */
+// 		sfdp-bfp = [e5 20 f1 ff ff ff ff 07 44 eb 08 6b 08 3b 04 bb
+// 			    fe ff ff ff ff ff 00 ff ff ff 44 eb 0c 20 0f 52
+// 			    10 d8 00 ff 82 41 bd 00 81 e5 7b c6 44 03 67 38
+// 			    30 b0 30 b0 f7 bd d5 5c 4a be 29 ff e1 d0 ff ff];
+// 		jedec-id = [66 66 20];
+// 		spi-bus-width = <4>;
+// 		status = "okay";
+// 	};
+// }
+
+/* U(S)ART */
+
+&sci3 {
+	pinctrl-0 = <&sci3_default>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	uart3: uart {
+		current-speed = <115200>;
+		status = "okay";
+	};
+};
+
+&sci9 {
+	pinctrl-0 = <&sci9_default>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	uart9: uart {
+		current-speed = <57600>;
+		status = "okay";
+		hw-flow-control;
+
+		bt_hci_uart: bt_hci_uart {
+			compatible = "zephyr,bt-hci-uart";
+			status = "okay";
+
+			esp32 {
+				compatible = "renesas,bt-hci-da1453x";
+				status = "okay";
+				reset-gpios = <&ioport1 15 GPIO_ACTIVE_LOW>;
+				reset-assert-duration-ms = <100>;
+				boot-duration-ms = <2000>;
+			};
+		};
+	};
+};
+
+/* I2C */
+
+&iic0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	interrupts = <87 1>, <88 1>, <89 1>, <90 1>;
+	interrupt-names = "rxi", "txi", "tei", "eri";
+	clock-frequency = <DT_FREQ_M(1)>;
+	pinctrl-0 = <&iic0_default>;
+	pinctrl-names = "default";
+
+	/* Fuel guage */
+	max17048: max17048@36 {
+		compatible = "maxim,max17048";
+		reg = <0x36>;
+		status = "okay";
+	};
+};
+
+&iic1 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	interrupts = <91 1>, <92 1>, <93 1>, <94 1>;
+	interrupt-names = "rxi", "txi", "tei", "eri";
+	clock-frequency = <DT_FREQ_M(1)>;
+	pinctrl-0 = <&iic1_default>;
+	pinctrl-names = "default";
+};
+
+/* SPI */
+
+&spi1 {
+	status = "okay";
+	pinctrl-0 = <&spi1_default>;
+	pinctrl-names = "default";
+	clock-frequency = <DT_FREQ_M(5)>;
+	cs-gpios = <&ioport1 3 GPIO_ACTIVE_LOW>,
+		   <&ioport1 4 GPIO_ACTIVE_LOW>;
+
+	esp_hosted@1 {
+		status = "okay";
+		compatible = "espressif,esp-hosted";
+		reg = <0x1>;
+		spi-max-frequency = <DT_FREQ_M(5)>;
+		reset-gpios = <&ioport8 4 GPIO_ACTIVE_HIGH>;
+		handshake-gpios = <&ioport8 6 GPIO_ACTIVE_HIGH>;
+		dataready-gpios = <&ioport8 3 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+
+/* ADC */
+
+&adc0 {
+	status = "okay";
+	pinctrl-0 = <&adc0_default>;
+	pinctrl-names = "default";
+};
+
+/* microSD card slot */
+
+&sdhc0 {
+	status = "okay";
+	compatible = "renesas,ra-sdhc";
+
+	channel = 0;
+	pinctrl-0 = <&sdhi0_default>;
+	pinctrl-names = "default";
+	enable-gpios = <&ioport7 8 GPIO_ACTIVE_LOW>;
+
+	/* Features */
+	sd-support;
+	card-detect;
+	write-protect;
+
+	interrupts = <18 12>, <20 12>, <19 12>;
+  	interrupt-names = "accs", "card", "dma-req";
+
+	sdmmc {
+		compatible = "zephyr,sdmmc-disk";
+		disk-name = "SD";
+		status = "okay";
+	};
+};
+
+/* System */
+
+&trng {
+	status = "okay";
+};
+
+&ioport0 {
+	status = "okay";
+};
+
+&ioport1 {
+	status = "okay";
+};
+
+&ioport2 {
+	status = "okay";
+};
+
+&ioport3 {
+	status = "okay";
+};
+
+&ioport4 {
+	status = "okay";
+};
+
+&ioport5 {
+	status = "okay";
+};
+
+&ioport6 {
+	status = "okay";
+};
+
+&ioport7 {
+	status = "okay";
+};
+
+&ioport8 {
+	status = "okay";
+};
+
+&ioport9 {
+	status = "okay";
+};
+
+&ioporta {
+	status = "okay";
+};
+
+&ioportb {
+	status = "okay";
+};
+
+&xtal {
+	clock-frequency = <DT_FREQ_M(24)>;
+	mosel = <0>;
+	#clock-cells = <0>;
+	status = "okay";
+};
+
+&subclk {
+	status = "okay";
+};
+
+&pll {
+	clocks = <&xtal>;
+	div = <3>;
+	mul = <25 0>;
+	status = "okay";
+};
+
+/* USB */
+
+&usbhs {
+	pinctrl-0 = <&usbhs_default>;
+	pinctrl-names = "default";
+	maximum-speed = "high-speed";
+	status = "okay";
+
+	zephyr_udc0: udc {
+		status = "okay";
+
+		board_cdc_acm_uart: board_cdc_acm_uart {
+			compatible = "zephyr,cdc-acm-uart";
+		};
+	};
+};
+
+&usbhs_phy {
+	phys-clock-src = "xtal";
+};
+
+/* Miscellaneous */
+
+&option_setting_ofs0 {
+	status = "disabled";
+};
+
+&option_setting_dualsel {
+	status = "disabled";
+};
+
+&option_setting_ofs1_sec {
+	status = "disabled";
+};
+
+&option_setting_banksel_sec {
+	status = "disabled";
+};
+
+&option_setting_bps_sec {
+	status = "disabled";
+};
+
+&option_setting_pbps_sec {
+	status = "disabled";
+};
+
+&option_setting_ofs1_sel {
+	status = "disabled";
+};
+
+&option_setting_banksel_sel {
+	status = "disabled";
+};
+
+&option_setting_bps_sel {
+	status = "disabled";
+};

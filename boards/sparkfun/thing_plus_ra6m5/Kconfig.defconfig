@@ -1,0 +1,10 @@
+# Copyright (c) 2025 George White
+# Copyright 2025 Arduino SA
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_SPARKFUN_THING_PLUS_RA6M5
+
+config USE_DT_CODE_PARTITION
+	default y
+
+endif # BOARD_SPARKFUN_THING_PLUS_RA6M5

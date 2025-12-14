@@ -1,0 +1,18 @@
+identifier: sparkfun_thing_plus_ra6m5
+name: Sparkfun Thing Plus - RA6M5
+type: mcu
+arch: arm
+ram: 512
+flash: 2048
+toolchain:
+  - zephyr
+  - gnuarmemb
+supported:
+  - gpio
+  - i2c
+  - pwm
+  - spi
+  - uart
+  - ble
+  - usbd
+vendor: arduino

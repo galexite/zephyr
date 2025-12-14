@@ -1,0 +1,86 @@
+/*
+ * Copyright (c) 2025 George White
+ * Copyright (c) 2024 Arduino SA
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Configuration for each pin should match in the Sparkfun Arduino Core
+ * (https://github.com/SFE-Brudnerd/ArduinoCore-renesas).
+ */
+
+&pinctrl {
+	/* Main UART */
+	sci3_default: sci3_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_SCI_3, 4, 9)>,   /* P409 - TX */
+				<RA_PSEL(RA_PSEL_SCI_3, 4, 8)>;   /* P408 - RX */
+		};
+	};
+
+	/* BLE UART */
+	sci9_default: sci9_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_SCI_9, 6, 2)>,   /* P602 - TX */
+				<RA_PSEL(RA_PSEL_SCI_9, 6, 1)>,   /* P601 - RX */
+				<RA_PSEL(RA_PSEL_SCI_9, 3, 1)>,   /* P301 - RTS */
+				<RA_PSEL(RA_PSEL_SCI_9, 3, 3)>;   /* P303 - CTS */
+		};
+	};
+
+	/* I2C (MAX17048 fuel guage) */
+	iic0_default: iic0_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_I2C, 4, 0)>,     /* P400 - SCL */
+				<RA_PSEL(RA_PSEL_I2C, 4, 1)>;     /* P401 - SDA */
+			drive-strength = "medium";
+		};
+	};
+
+	/* SPI */
+	spi0_default: spi0_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_SPI, 1, 10)>,    /* P110 - MISO */
+				<RA_PSEL(RA_PSEL_SPI, 1, 9)>,     /* P109 - MOSI */
+				<RA_PSEL(RA_PSEL_SPI, 1, 11)>,    /* P111 - SCK */
+				<RA_PSEL(RA_PSEL_SPI, 1, 12)>;    /* P112 - CS */
+		};
+	};
+
+	/* ADC */
+	adc0_default: adc0_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_ADC, 0, 14)>,    /* P014 - A0/DAC0 */
+				<RA_PSEL(RA_PSEL_ADC, 0, 15)>,    /* P015 - A1/DAC1 */
+				<RA_PSEL(RA_PSEL_ADC, 5, 5)>,     /* P505 - A2 */
+				<RA_PSEL(RA_PSEL_ADC, 5, 4)>,     /* P504 - A3 */
+				<RA_PSEL(RA_PSEL_ADC, 5, 3)>,     /* P503 - A4 */
+				<RA_PSEL(RA_PSEL_ADC, 5, 2)>;     /* P502 - A5 */
+			renesas,analog-enable;
+		};
+	};
+
+	/* QSPI */
+	qspi_default: qspi_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_QSPI, 1, 0)>,    /* P100 - CLK */
+				<RA_PSEL(RA_PSEL_QSPI, 5, 1)>,    /* P501 - SS */
+				<RA_PSEL(RA_PSEL_QSPI, 1, 2)>,    /* P102 - IO0 */
+				<RA_PSEL(RA_PSEL_QSPI, 1, 1)>,    /* P101 - IO1 */
+				<RA_PSEL(RA_PSEL_QSPI, 1, 4)>,    /* P104 - IO2 */
+				<RA_PSEL(RA_PSEL_QSPI, 1, 3)>;    /* P103 - IO3 */
+		};
+	};
+
+	/* SDHI */
+	sdhi0_default: sdhi0_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_SDHI, 2, 14)>,   /* P214 - CLK */
+				<RA_PSEL(RA_PSEL_SDHI, 2, 11)>,   /* P211 - CMD */
+				<RA_PSEL(RA_PSEL_SDHI, 2, 8)>,    /* P208 - D0 */
+				<RA_PSEL(RA_PSEL_SDHI, 4, 10)>,   /* P410 - D1 */
+				<RA_PSEL(RA_PSEL_SDHI, 2, 6)>,    /* P206 - D2 */
+				<RA_PSEL(RA_PSEL_SDHI, 2, 5)>,    /* P205 - D3 */
+				<RA_PSEL(RA_PSEL_SDHI, 2, 10)>,   /* P210 - CD */
+				<RA_PSEL(RA_PSEL_SDHI, 4, 14)>;   /* P414 - WP */
+		};
+	};
+};
