@@ -25,8 +25,8 @@
 		zephyr,flash-controller = &flash1;
 		zephyr,code-partition = &code_partition;
 		zephyr,flash = &flash0;
-		zephyr,console = &uart9;
-		zephyr,shell-uart = &uart9;
+		zephyr,console = &uart3;
+		zephyr,shell-uart = &uart3;
 		zephyr,entropy = &trng;
 		zephyr,bt-hci = &bt_hci_uart;
 		zephyr,led-strip = &rgb_led;
