@@ -8,7 +8,7 @@
  */
 
 &pinctrl {
-	/* Main UART */
+	/* Feather connector UART */
 	sci3_default: sci3_default {
 		group1 {
 			psels = <RA_PSEL(RA_PSEL_SCI_3, 4, 9)>,   /* P409 - TX */

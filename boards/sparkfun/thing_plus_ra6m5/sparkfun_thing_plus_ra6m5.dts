@@ -29,39 +29,40 @@
 		zephyr,shell-uart = &uart9;
 		zephyr,entropy = &trng;
 		zephyr,bt-hci = &bt_hci_uart;
+		zephyr,led-strip = &rgb_led;
 	};
 
 	leds {
 		compatible = "gpio-leds";
 
-		led1: led1 {
-			gpios = <&ioport1 7 GPIO_ACTIVE_LOW>;
-			label = "LEDR";
-		};
-
-		led2: led2 {
-			gpios = <&ioport4 0 GPIO_ACTIVE_LOW>;
-			label = "LEDG";
-		};
-
-		led3: led3 {
-			gpios = <&ioport8 0 GPIO_ACTIVE_LOW>;
-			label = "LEDB";
+		led0: led0 {
+			gpios = <&ioport1 6 GPIO_ACTIVE_LOW>;
+			label = "Status";
 		};
 	};
+
+	rgb_led: ws2812 {
+		compatible = "worldsemi,ws2812-gpio";
+		gpios = <&ioport1 5 0>;
+		chain-length = <1>;
+		color-mapping = <LED_COLOR_ID_GREEN
+				LED_COLOR_ID_RED
+				LED_COLOR_ID_BLUE>;
+		reset-delay = <50>;
+	}
 
 	gpio_keys {
 		compatible = "gpio-keys";
 
 		user_button: button {
-			label = "User";
 			gpios = <&ioport4 15 GPIO_ACTIVE_LOW>;
+			label = "User";
 			zephyr,code = <INPUT_KEY_0>;
 		};
 	};
 
 	aliases {
-		led0 = &led1;
+		led0 = &led0;
 		sw0 = &user_button;
 	};
 };
