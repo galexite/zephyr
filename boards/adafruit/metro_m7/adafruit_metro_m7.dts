@@ -8,19 +8,16 @@
 
 /dts-v1/;
 
-#include <nxp/nxp_rt1010.dtsi>
-#include "adafruit_metro_m7-pinctrl.dtsi"
 #include <freq.h>
 #include <mem.h>
+#include <nxp/nxp_rt1010.dtsi>
+#include <zephyr/dt-bindings/led/led.h>
+
+#include "adafruit_metro_m7-pinctrl.dtsi"
 
 / {
 	model = "Adafruit Metro M7";
 	compatible = "adafruit,metro_m7";
-
-	aliases {
-		/* TODO(galexite): NeoPixel */
-		led0 = &user_led;
-	};
 
 	chosen {
 		zephyr,sram = &ocram;
@@ -32,15 +29,17 @@
 		zephyr,flash-controller = &w25q64jvssiq;
 		zephyr,code-partition = &code_partition;
 		zephyr,uart-mcumgr = &lpuart1;
+		zephyr,led-strip = &rgb_led;
 	};
 
-	leds {
-		compatible = "gpio-leds";
-		user_led: led-1 {
-			gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
-			label = "User LED";
-		};
-	};
+	rgb_led: ws2812 {
+		compatible = "worldsemi,ws2812-gpio";
+		chain-length = <1>;
+		color-mapping = <LED_COLOR_ID_GREEN
+				LED_COLOR_ID_RED
+				LED_COLOR_ID_BLUE>;
+		gpios = <&gpio1 0 0>;
+	}
 
 	arduino_header: connector {
 		compatible = "arduino-header-r3";

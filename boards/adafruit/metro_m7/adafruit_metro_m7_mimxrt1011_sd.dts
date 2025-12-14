@@ -23,6 +23,7 @@
 		status = "okay";
 		spi-max-frequency = <DT_FREQ_M(24)>;
 		spi-no-hold-on-cs;
+		cd-gpios = <&gpio1 25 0>;
 		mmc {
 			compatible = "zephyr,sdmmc-disk";
 			disk-name = "SD";
