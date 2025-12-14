@@ -42,7 +42,6 @@
 		};
 	};
 
-	/* TODO(galexite): complete Ax headers, check D14, D15 */
 	arduino_header: connector {
 		compatible = "arduino-header-r3";
 		#gpio-cells = <2>;
