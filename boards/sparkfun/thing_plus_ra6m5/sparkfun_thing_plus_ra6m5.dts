@@ -50,15 +50,19 @@
 		};
 	};
 
-	download-esp32 {
-		compatible = "regulator-fixed";
-		regulator-name = "download_esp32";
-		enable-gpios = <&ioport8 3 GPIO_ACTIVE_HIGH>;
-		regulator-boot-on;
+	gpio_keys {
+		compatible = "gpio-keys";
+
+		user_button: button {
+			label = "User";
+			gpios = <&ioport4 15 GPIO_ACTIVE_LOW>;
+			zephyr,code = <INPUT_KEY_0>;
+		};
 	};
 
 	aliases {
 		led0 = &led1;
+		sw0 = &user_button;
 	};
 };
 
@@ -153,7 +157,7 @@
 	};
 };
 
-/* I2C */
+/* I2C, shared between feather connector and fuel guage */
 
 &iic0 {
 	status = "okay";
@@ -173,38 +177,15 @@
 	};
 };
 
-&iic1 {
-	status = "okay";
-	#address-cells = <1>;
-	#size-cells = <0>;
-	interrupts = <91 1>, <92 1>, <93 1>, <94 1>;
-	interrupt-names = "rxi", "txi", "tei", "eri";
-	clock-frequency = <DT_FREQ_M(1)>;
-	pinctrl-0 = <&iic1_default>;
-	pinctrl-names = "default";
-};
-
 /* SPI */
 
-&spi1 {
+&spi0 {
 	status = "okay";
-	pinctrl-0 = <&spi1_default>;
+	pinctrl-0 = <&spi0_default>;
 	pinctrl-names = "default";
 	clock-frequency = <DT_FREQ_M(5)>;
-	cs-gpios = <&ioport1 3 GPIO_ACTIVE_LOW>,
-		   <&ioport1 4 GPIO_ACTIVE_LOW>;
-
-	esp_hosted@1 {
-		status = "okay";
-		compatible = "espressif,esp-hosted";
-		reg = <0x1>;
-		spi-max-frequency = <DT_FREQ_M(5)>;
-		reset-gpios = <&ioport8 4 GPIO_ACTIVE_HIGH>;
-		handshake-gpios = <&ioport8 6 GPIO_ACTIVE_HIGH>;
-		dataready-gpios = <&ioport8 3 GPIO_ACTIVE_HIGH>;
-	};
+	cs-gpios = <&ioport1 12 GPIO_ACTIVE_LOW>;
 };
-
 
 /* ADC */
 
