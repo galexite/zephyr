@@ -855,6 +855,9 @@ static DEVICE_API(sdhc, sdhc_spi_api) = {
 };
 
 
+#define SDHC_SPI_MAYBE_HOLD_ON_CS(n) \
+	COND_CODE_0(DT_INST_PROP(n, spi_no_hold_on_cs), (SPI_HOLD_ON_CS), (0))
+
 #define SDHC_SPI_INIT(n)							\
 	const struct sdhc_spi_config sdhc_spi_config_##n = {			\
 		.spi_dev = DEVICE_DT_GET(DT_INST_PARENT(n)),			\
@@ -866,7 +869,7 @@ static DEVICE_API(sdhc, sdhc_spi_api) = {
 										\
 	struct sdhc_spi_data sdhc_spi_data_##n = {				\
 		.cfg_a = SPI_CONFIG_DT_INST(n,					\
-				(SPI_LOCK_ON | SPI_HOLD_ON_CS | SPI_WORD_SET(8) \
+				(SPI_LOCK_ON | SDHC_SPI_MAYBE_HOLD_ON_CS(n) | SPI_WORD_SET(8) \
 				 | (DT_INST_PROP(n, spi_clock_mode_cpol) ? SPI_MODE_CPOL : 0) \
 				 | (DT_INST_PROP(n, spi_clock_mode_cpha) ? SPI_MODE_CPHA : 0) \
 				)),						\

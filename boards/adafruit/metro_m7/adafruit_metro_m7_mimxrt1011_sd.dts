@@ -22,7 +22,7 @@
 		reg = <0>;
 		status = "okay";
 		spi-max-frequency = <DT_FREQ_M(24)>;
-		/delete-property/ spi-hold-cs;
+		spi-no-hold-on-cs;
 		mmc {
 			compatible = "zephyr,sdmmc-disk";
 			disk-name = "SD";

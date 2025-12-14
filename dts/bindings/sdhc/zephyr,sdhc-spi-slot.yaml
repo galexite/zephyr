@@ -40,4 +40,12 @@ properties:
       Card detect pin
       This pin can be used to detect if a card is present in the slot.
 
+  spi-no-hold-on-cs:
+    type: boolean
+    description: |
+      By default, the driver uses the SPI_HOLD_ON_CS flag which keeps chip
+      select asserted between transactions. However, some SPI controllers do
+      not support this. Set this property if your SPI controller does not
+      support this flag.
+
 bus: sd
