@@ -8,13 +8,14 @@
 
 /* NOTE: different package type, but otherwise same SoC */
 #include <renesas/ra/ra6/r7fa6m5bh3cfc.dtsi>
+
 #include <zephyr/dt-bindings/gpio/gpio.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <zephyr/dt-bindings/adc/adc.h>
 #include <zephyr/dt-bindings/pwm/pwm.h>
+#include <zephyr/dt-bindings/led/led.h>
 
 #include "sparkfun_thing_plus_ra6m5-pinctrl.dtsi"
-#include "feather_connector.dtsi"
 
 / {
 	model = "Sparkfun Thing Plus - RA6M5";
@@ -49,7 +50,7 @@
 				LED_COLOR_ID_RED
 				LED_COLOR_ID_BLUE>;
 		reset-delay = <50>;
-	}
+	};
 
 	gpio_keys {
 		compatible = "gpio-keys";
@@ -198,29 +199,31 @@
 
 /* microSD card slot */
 
-&sdhc0 {
-	status = "okay";
-	compatible = "renesas,ra-sdhc";
+// TODO: not in the SoC definition, but it's there...
+// sdhc0: sdhc0@40092000 {
+// 	status = "okay";
+// 	compatible = "renesas,ra-sdhc";
+// 	reg = <0x40092000 0x400>;
 
-	channel = 0;
-	pinctrl-0 = <&sdhi0_default>;
-	pinctrl-names = "default";
-	enable-gpios = <&ioport7 8 GPIO_ACTIVE_LOW>;
+// 	channel = 0;
+// 	pinctrl-0 = <&sdhi0_default>;
+// 	pinctrl-names = "default";
+// 	enable-gpios = <&ioport7 8 GPIO_ACTIVE_LOW>;
 
-	/* Features */
-	sd-support;
-	card-detect;
-	write-protect;
+// 	/* Features */
+// 	sd-support;
+// 	card-detect;
+// 	write-protect;
 
-	interrupts = <18 12>, <20 12>, <19 12>;
-  	interrupt-names = "accs", "card", "dma-req";
+// 	interrupts = <18 12>, <20 12>, <19 12>;
+//   	interrupt-names = "accs", "card", "dma-req";
 
-	sdmmc {
-		compatible = "zephyr,sdmmc-disk";
-		disk-name = "SD";
-		status = "okay";
-	};
-};
+// 	sdmmc {
+// 		compatible = "zephyr,sdmmc-disk";
+// 		disk-name = "SD";
+// 		status = "okay";
+// 	};
+// };
 
 /* System */
 
@@ -296,10 +299,10 @@
 
 /* USB */
 
-&usbhs {
-	pinctrl-0 = <&usbhs_default>;
+&usbfs {
+	pinctrl-0 = <&usbfs_default>;
 	pinctrl-names = "default";
-	maximum-speed = "high-speed";
+	maximum-speed = "full-speed";
 	status = "okay";
 
 	zephyr_udc0: udc {
@@ -309,10 +312,6 @@
 			compatible = "zephyr,cdc-acm-uart";
 		};
 	};
-};
-
-&usbhs_phy {
-	phys-clock-src = "xtal";
 };
 
 /* Miscellaneous */
@@ -352,3 +351,6 @@
 &option_setting_bps_sel {
 	status = "disabled";
 };
+
+/* Feather connector */
+#include "feather_connector.dtsi"

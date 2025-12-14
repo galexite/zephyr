@@ -83,4 +83,12 @@
 				<RA_PSEL(RA_PSEL_SDHI, 4, 14)>;   /* P414 - WP */
 		};
 	};
+
+	/* USB */
+	usbfs_default: usbfs_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_USBFS, 4, 7)>;   /* USB-VBUS */
+			drive-strength = "high";
+		};
+	};
 };
