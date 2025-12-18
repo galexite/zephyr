@@ -116,7 +116,7 @@
 		write-block-size = <1>;
 		erase-block-size = <4096>;
 	};
-}
+};
 
 /* U(S)ART */
 
