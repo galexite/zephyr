@@ -297,7 +297,20 @@
 	status = "okay";
 };
 
+&pll2 {
+	clocks = <&xtal>;
+	div = <2>;
+	mul = <20 0>;
+	status = "okay";
+};
+
 /* USB */
+
+&uclk {
+	clocks = <&pll2>;
+	div = <5>;
+	status = "okay";
+};
 
 &usbfs {
 	pinctrl-0 = <&usbfs_default>;
@@ -307,10 +320,6 @@
 
 	zephyr_udc0: udc {
 		status = "okay";
-
-		board_cdc_acm_uart: board_cdc_acm_uart {
-			compatible = "zephyr,cdc-acm-uart";
-		};
 	};
 };
 
