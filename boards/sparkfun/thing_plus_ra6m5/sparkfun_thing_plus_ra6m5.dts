@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 George White
+ * Copyright (c) 2025-2026 George White
  * Copyright (c) 2025 Arduino SA
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -44,7 +44,7 @@
 
 	rgb_led: ws2812 {
 		compatible = "worldsemi,ws2812-gpio";
-		gpios = <&ioport1 5 0>;
+		gpios = <&ioport1 5 GPIO_ACTIVE_HIGH>;
 		chain-length = <1>;
 		color-mapping = <LED_COLOR_ID_GREEN
 				LED_COLOR_ID_RED
@@ -156,7 +156,7 @@
 	};
 };
 
-/* I2C, shared between feather connector and fuel guage */
+/* I2C */
 
 &iic0 {
 	status = "okay";
@@ -192,6 +192,7 @@
 	status = "okay";
 	pinctrl-0 = <&adc0_default>;
 	pinctrl-names = "default";
+	reference = "external";  /* see also vref-enable */
 };
 
 /* microSD card slot */
@@ -250,6 +251,13 @@
 
 &ioport5 {
 	status = "okay";
+
+	vref-enable {
+		gpio-hog;
+		gpios = <&ioport5 0 GPIO_ACTIVE_HIGH>;
+		output-high;
+		line-name = "VREF_EN";
+	};
 };
 
 &ioport6 {
@@ -360,3 +368,6 @@
 
 /* Feather connector */
 #include "feather_connector.dtsi"
+
+/* Qwiic connector */
+#include "qwiic_connector.dtsi"

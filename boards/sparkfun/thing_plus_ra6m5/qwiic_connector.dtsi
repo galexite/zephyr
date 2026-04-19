@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2025-2026 George White
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+
+/ {
+	stemma_connector: stemma-qt-connector {
+		compatible = "stemma-qt-connector";
+		#gpio-cells = <2>;
+		gpio-map-mask = <0xffffffff 0>;
+		gpio-map-pass-thru = <0 GPIO_DT_FLAGS_MASK>;
+		gpio-map = <0 0 &ioport4 0 0>, /* SCL */
+			   <1 0 &ioport4 1 0>; /* SDA */
+	}
+}
+
+stemma_i2c: &iic1 {};
+
+qwiic_connector: &stemma_connector {};
+
+qwiic_i2c: &stemma_i2c {};

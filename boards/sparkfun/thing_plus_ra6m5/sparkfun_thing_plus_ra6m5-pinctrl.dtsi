@@ -26,7 +26,7 @@
 		};
 	};
 
-	/* I2C (MAX17048 fuel guage) */
+	/* I2C (Feather Connector, Qwiic Connector and MAX17048 fuel guage) */
 	iic0_default: iic0_default {
 		group1 {
 			psels = <RA_PSEL(RA_PSEL_I2C, 4, 0)>,     /* P400 - SCL */
@@ -91,4 +91,12 @@
 			drive-strength = "high";
 		};
 	};
+
+	/* VREF_EN */
+	vref_en_default: vref_en_default {
+		group1 {
+			psels = <RA_PSEL(RA_PSEL_ADC, 5, 0)>;
+			drive-open-drain;
+		}
+	}
 };
