@@ -6,7 +6,7 @@
 
 /dts-v1/;
 
-/* NOTE: different package type, but otherwise same SoC */
+/* NOTE: Actual part number used is R7FA6M5AH3CFB */
 #include <renesas/ra/ra6/r7fa6m5bh3cfc.dtsi>
 
 #include <zephyr/dt-bindings/gpio/gpio.h>
